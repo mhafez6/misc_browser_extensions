@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+
+    
+    <div class="input-section">
+      <div class="input-group">
+        <input id="key" placeholder="Letter (e.g. A)" maxlength="1">
+        <input id="val" type="number" placeholder="Speed (e.g. 2.0)" step="0.1" min="0.1">
+        <button id="btn">Save</button>
+      </div>
+    </div>
+    
+    <div class="keybindings-section">
+      <div class="keybindings-header">Current bindings</div>
+      <div id="keybindings-list" class="keybindings-list"></div>
+    </div>
+  </div>
+  
+  <script src="display_keybinds.js"></script>
+  <script src="store_nums.js"></script>
+</body>
+</html>
