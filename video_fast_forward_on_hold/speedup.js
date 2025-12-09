@@ -2,11 +2,23 @@
 
 console.log("haha");
 
-let keybinds = {}
-const vids = document.querySelectorAll('video');
 
-async function init(){
-    result = await chrome.storage.local.get(({'keybinds': {}}))
+
+let keybinds = {}
+let vids = document.querySelectorAll('video');
+
+function update_vids() {
+    vids = document.querySelectorAll('video')
+}
+
+const observer = new MutationObserver(update_vids)
+observer.observe(document, {
+    childList: true,
+    subtree: true,
+})
+
+async function init() {
+    result = await chrome.storage.local.get(({ 'keybinds': {} }))
     keybinds = result.keybinds
 }
 
@@ -22,21 +34,20 @@ chrome.storage.onChanged.addListener((changes) => {
 function handle_key_down(e) {
     if (!e.repeat && keybinds.hasOwnProperty(e.key)) {
         vids.forEach(el => {
-            el.playbackRate = keybinds[e.key]; 
+            el.playbackRate = keybinds[e.key];
         });
     }
 }
 
 
 function handle_key_up(e) {
-    if (keybinds.hasOwnProperty(e.key)){
-        const vids = document.querySelectorAll('video');
+    if (keybinds.hasOwnProperty(e.key)) {
         vids.forEach(el => {
-            el.playbackRate = 1.0; 
+            el.playbackRate = 1.0;
         });
     }
-        
-    
+
+
 }
 
 document.addEventListener('keydown', handle_key_down);
